@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://di0ilunqruiyh"]
+
+[ext_resource type="Script" uid="uid://bq284nc4bv6pd" path="res://scenes/death_menu.gd" id="1_20fbl"]
+[ext_resource type="Texture2D" uid="uid://cyg2itl3i87wc" path="res://assets/sprites/UI/ui9tile.png" id="1_latkk"]
+[ext_resource type="FontFile" uid="uid://hxios1wykmax" path="res://assets/fonts/PixelFont.ttf" id="2_uldby"]
+[ext_resource type="Texture2D" uid="uid://80r2kqmqf7rr" path="res://assets/sprites/UI/reset_normal.png" id="2_vqs20"]
+[ext_resource type="Texture2D" uid="uid://bnykxs5s5uej3" path="res://assets/sprites/UI/reset_pressed.png" id="3_20fbl"]
+[ext_resource type="Texture2D" uid="uid://byab2ijigmtid" path="res://assets/sprites/UI/reset_mouse.png" id="4_uldby"]
+
+[sub_resource type="Theme" id="Theme_tie44"]
+default_font = ExtResource("2_uldby")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uldby"]
+color = Color(0.30980393, 0.42745098, 0.42352942, 1)
+thickness = 4
+
+[sub_resource type="InputEventKey" id="InputEventKey_latkk"]
+device = -1
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_gm7js"]
+events = [SubResource("InputEventKey_latkk")]
+
+[node name="DeathMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_20fbl")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_tie44")
+
+[node name="MenuPanel" type="NinePatchRect" parent="Control"]
+custom_minimum_size = Vector2(500, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_latkk")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MenuPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.79198986, 0.29331523, 0.31662092, 1)
+theme_override_font_sizes/font_size = 32
+text = "YOU DIED!"
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "KILLS: 0  |  TIME: 0"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR SCORE: 0"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uldby")
+
+[node name="HighscoresTitleLabel" type="Label" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48962224, 0.48962224, 0.489622, 1)
+text = "HIGH SCORE LIST:"
+horizontal_alignment = 1
+
+[node name="HighscoresListLabel" type="Label" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44291073, 0.44291082, 0.4429105, 1)
+text = "1:   0
+2:   0
+3:   0
+4:   0
+5:   0"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RestartButton" type="TextureButton" parent="Control/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+shortcut = SubResource("Shortcut_gm7js")
+texture_normal = ExtResource("2_vqs20")
+texture_pressed = ExtResource("3_20fbl")
+texture_hover = ExtResource("4_uldby")

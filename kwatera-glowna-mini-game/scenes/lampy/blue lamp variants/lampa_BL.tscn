@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b68ujmfisamoa"]
+
+[ext_resource type="Texture2D" uid="uid://mwrgv1punqef" path="res://assets/sprites/lights_sprites.png" id="1_r7pqm"]
+[ext_resource type="Texture2D" uid="uid://dah4mrgrdtdch" path="res://assets/light textures/blue_light_texture.png" id="2_0beh5"]
+
+[node name="LampaBl" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -79.0
+offset_top = -61.0
+offset_right = 79.0
+offset_bottom = 60.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_r7pqm")
+hframes = 6
+vframes = 2
+frame = 9
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+position = Vector2(-5, 0)
+shadow_enabled = true
+texture = ExtResource("2_0beh5")
