@@ -52,7 +52,7 @@ func _physics_process(_delta: float) -> void:
 		laser_anim.play("shoot")
 		bron_anim.play("shoot")
 		_handle_laser()
-		timer.start(0.5)
+		timer.start(0.35)
 		can_shoot = false
 		
 var can_shoot: bool = true

@@ -252,35 +252,45 @@ func _on_collision_with_wall() -> void:
 		var collider = collision.get_collider()
 		
 		if collider.is_in_group("obstacles") or collider.is_in_group("Enemies"):
-			#print("Collided with an obstacle")
+			#print("Collided with an obstacle") ##[DEBUG]
 			_pick_new_roam_target()
 
+# Function that handles the enemy taking damage
 func _get_hit(damage: float) -> void:
 	health -= damage
 	if health <= 0:
 		_die()
 
 func _die() -> void:
+	## Disable physics processing
 	set_physics_process(false)
 
+	# Set collider and detection area to disabled
 	enemy_collider.set_deferred("disabled", true)
 	detection_shape.set_deferred("disabled", true)
 	
+	## Play the death animation
 	_change_anim_stat("enemy_death")
+	
+	# Add to the kill counter in main scene script
 	var main_scene = get_tree().current_scene as MainScene
 	if main_scene:
 		main_scene.add_kill()
 	
+	## I DONT UNDERSTAND
 	await get_tree().create_timer(3.0).timeout
 	
+	## I DONT UNDERSTAND
 	queue_free()
 
+# Based on the specific parameters change animations
 func _handle_animations() -> void:
 	if velocity.length() != 0:
 		_change_anim_stat("walk")
 	else:
 		_change_anim_stat("default")
 
+# Change an animation without disturbing the one being played right now
 var current_anim_state: String = "default"
 func _change_anim_stat(new_state) -> void:
 	if current_anim_state != new_state:

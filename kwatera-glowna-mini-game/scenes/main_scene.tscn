@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://byw8eoya04m0x"]
+[gd_scene load_steps=65 format=4 uid="uid://byw8eoya04m0x"]
 
 [ext_resource type="Script" uid="uid://bemnotre4t3t8" path="res://assets/Scripts/main_scene.gd" id="1_6p3nn"]
 [ext_resource type="Texture2D" uid="uid://djstt7ck5ag4a" path="res://assets/sprites/wall_tile.png" id="2_pu3yx"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://w8qx81bbwyj1" path="res://scenes/enemy.tscn" id="23_58gk3"]
 [ext_resource type="PackedScene" uid="uid://di0ilunqruiyh" path="res://scenes/death_menu.tscn" id="24_to7gp"]
 [ext_resource type="PackedScene" uid="uid://dnhjawym53n0d" path="res://scenes/spawner.tscn" id="25_u0fll"]
+[ext_resource type="FontFile" uid="uid://hxios1wykmax" path="res://assets/fonts/PixelFont.ttf" id="27_02d50"]
 [ext_resource type="Texture2D" uid="uid://db0fl01n0d673" path="res://assets/sprites/UI/healthbar/under_hb.png" id="27_4bgka"]
 [ext_resource type="Texture2D" uid="uid://j556i3hogemw" path="res://assets/sprites/UI/healthbar/over_hb.png" id="28_02d50"]
 [ext_resource type="Texture2D" uid="uid://2w6ps84oo6gn" path="res://assets/sprites/UI/healthbar/progress_hb.png" id="29_pgk25"]
@@ -391,6 +392,9 @@ func _ready() -> void:
 	pass
 "
 
+[sub_resource type="Theme" id="Theme_pgk25"]
+default_font = ExtResource("27_02d50")
+
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_6p3nn")
 
@@ -516,16 +520,27 @@ enemy_scene = ExtResource("23_58gk3")
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 11
 
-[node name="Healthbar" type="TextureProgressBar" parent="HUD"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 156.0
+offset_bottom = 133.0
+theme = SubResource("Theme_pgk25")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control"]
+layout_mode = 0
 offset_left = 17.0
-offset_top = 27.0
-offset_right = -1007.0
-offset_bottom = -605.0
-scale = Vector2(2, 2)
+offset_top = 18.0
+offset_right = 145.0
+offset_bottom = 78.0
+
+[node name="Healthbar" type="TextureProgressBar" parent="HUD/Control/VBoxContainer"]
+layout_mode = 2
 value = 100.0
 texture_under = ExtResource("27_4bgka")
 texture_over = ExtResource("28_02d50")
 texture_progress = ExtResource("29_pgk25")
+
+[node name="Kills" type="Label" parent="HUD/Control/VBoxContainer"]
+layout_mode = 2
+text = "KILLS: 0"

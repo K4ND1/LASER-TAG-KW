@@ -59,14 +59,11 @@ func display_game_over(kills: int, time_survived: float) -> void:
 	show()
 	get_tree().paused = true
 	
-	# 2. Przygotowanie panelu do animacji
-	# Ustawiamy punkt obrotu/skalowania na sam środek okienka
+	# We are setting the menu in the middle of the screen and scaling it to zero
 	menu_panel.pivot_offset = menu_panel.size / 2.0
-	
-	# Zmniejszamy okienko do zera (niewidoczne na starcie)
 	menu_panel.scale = Vector2.ZERO
 	
-	# 3. Pokazujemy menu i pauzujemy grę
+	# We are showing the menu and pausing the game
 	show()
 	get_tree().paused = true
 

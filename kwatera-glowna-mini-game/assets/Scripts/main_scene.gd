@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var player: CharacterBody2D = $Player ## Reference to the player scene
 @onready var death_menu: CanvasLayer = $DeathMenu ## Reference to the death menu
-@onready var healthbar: TextureProgressBar = $HUD/Healthbar
+@onready var healthbar: TextureProgressBar = $HUD/Control/VBoxContainer/Healthbar
 
 var kills_count: int = 0 ## Counter for how many enemies has player killed
 var survival_time: float = 0.0 ## Updated with delta time of survival of the player in a game
@@ -23,9 +23,12 @@ func _process(delta: float) -> void:
 func change_health_bar(health: int):
 	healthbar.value = health
 
+
+@onready var kills: Label = $HUD/Control/VBoxContainer/Kills
 # Function that is being called in enemies upon when they die
 func add_kill() -> void:
 	kills_count += 1
+	kills.text = "KILLS: " + str(kills_count)
 	#print("Current Kills: ", kills_count) ##[DEBUG]
 
 # Simple function that returns the final score, kind of just a getter
