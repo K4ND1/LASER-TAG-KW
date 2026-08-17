@@ -48,15 +48,27 @@ func _physics_process(_delta: float) -> void:
 	else:
 		animated_sprite_2d.play("default")
 		
-	if Input.is_action_just_pressed("shoot") and can_shoot:
+	if Input.is_action_just_pressed("reload"):
+		current_amo = 16
+		var main_scene = get_tree().current_scene as MainScene
+		main_scene._change_amo()
+		
+		
+	if Input.is_action_just_pressed("shoot") and can_shoot and current_amo > 0:
 		laser_anim.play("shoot")
 		bron_anim.play("shoot")
 		_handle_laser()
 		timer.start(0.35)
 		can_shoot = false
-		
+
+
+
 var can_shoot: bool = true
+var current_amo: int = 16
 func _handle_laser() -> void:
+	current_amo -=1
+	var main_scene = get_tree().current_scene as MainScene
+	main_scene._change_amo()
 	if ray_cast_2d.is_colliding():
 		var collision_point = ray_cast_2d.get_collision_point()
 		var dis = laser_anim.global_position.distance_to(collision_point)

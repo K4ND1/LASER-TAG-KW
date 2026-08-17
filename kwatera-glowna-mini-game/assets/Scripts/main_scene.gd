@@ -23,13 +23,16 @@ func _process(delta: float) -> void:
 func change_health_bar(health: int):
 	healthbar.value = health
 
-
+@onready var ammunition: TextureProgressBar = $HUD/Control/ammunition
 @onready var kills: Label = $HUD/Control/VBoxContainer/Kills
 # Function that is being called in enemies upon when they die
 func add_kill() -> void:
 	kills_count += 1
 	kills.text = "KILLS: " + str(kills_count)
 	#print("Current Kills: ", kills_count) ##[DEBUG]
+
+func _change_amo()->void:
+	ammunition.value = player.current_amo
 
 # Simple function that returns the final score, kind of just a getter
 func calculate_final_score() -> int:
