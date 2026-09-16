@@ -14,33 +14,41 @@
 atlas = ExtResource("3_xwavj")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_md484"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3vcr"]
 atlas = ExtResource("4_nenq2")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3vcr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qaulx"]
 atlas = ExtResource("4_nenq2")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qaulx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f82d"]
 atlas = ExtResource("4_nenq2")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1f82d"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lioqc"]
 atlas = ExtResource("4_nenq2")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lioqc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lg75"]
 atlas = ExtResource("4_nenq2")
 region = Rect2(64, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0lg75"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsnsy"]
 atlas = ExtResource("4_nenq2")
 region = Rect2(80, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lsnsy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_thsr5"]
 atlas = ExtResource("4_nenq2")
 region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekh6n"]
+atlas = ExtResource("4_nenq2")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sbpf"]
+atlas = ExtResource("4_nenq2")
+region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qclf"]
 atlas = ExtResource("3_xwavj")
@@ -94,9 +102,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_md484")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_t3vcr")
 }, {
 "duration": 1.0,
@@ -113,6 +118,15 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lsnsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thsr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekh6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sbpf")
 }],
 "loop": false,
 "name": &"enemy_death",

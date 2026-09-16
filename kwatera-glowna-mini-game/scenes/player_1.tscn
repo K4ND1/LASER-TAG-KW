@@ -228,6 +228,7 @@ got_hit_sound = ExtResource("4_cyakk")
 empty_mag_sound = ExtResource("5_7m5b5")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=542381233]
+visible = false
 offset_left = -114.0
 offset_top = -66.0
 offset_right = 175.0
