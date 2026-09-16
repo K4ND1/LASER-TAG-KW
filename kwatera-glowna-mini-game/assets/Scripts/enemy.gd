@@ -16,6 +16,8 @@ const CHASE_SPEED = 30.0
 
 @export var health: float = 60 ## Enemy health
 
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 @export var roam_radius: float = 200.0 ## The distance that enemy can roam in freely. 
 @export var lose_sight_delay: float = 0.8 ## Time the enemy remembers the player
 var lose_sight_timer: float = 0.0 ## Timer responisble for smooth transition from chase to roam
@@ -43,6 +45,9 @@ var nav_map_RID: RID ## RID of the navigation map so that it doesn't have to be 
 @export_flags_2d_physics var line_of_sight_mask: int = 1 # Masks for the "line of sight" ray casting.	
 
 var detection_radius: float = 200.0  ## Detection radius that is being overriden by the raidus of the node CollisionShape2D
+
+@export var shoot_sound: AudioStream
+@export var got_hit_sound: AudioStream
 
 func _ready() -> void:
 	roam_timer.one_shot = true ## Forcing the roam timer to be a oneshot, so that it will not send a signal periodacally
@@ -103,6 +108,12 @@ func _check_detection_hysteresis() -> void:
 		var distance = global_position.distance_to(player_in_area.global_position)
 		if distance > (detection_radius + 10.0):
 			player_in_area = null
+
+func play_sound_effect(_new_sound_effect: AudioStream) -> void:
+	audio_stream_player_2d.stream = _new_sound_effect
+	audio_stream_player_2d.pitch_scale = randf_range(0.95,1.05)
+	audio_stream_player_2d.play()
+
 
 # --- LINE OF SIGHT, RAYCASTING ---: Using godots built in physics handling checks if the player is in direct sight of the enemy
 func _has_line_of_sight() -> bool:
@@ -220,6 +231,7 @@ func _apply_dmg(in_delta: float):
 		target_player._get_hit(damage_dealt)
 		laser_anim.play("shoot")
 		bron_anim.play("shoot")
+		play_sound_effect(shoot_sound)
 		
 		
 #---------------------------------------------------------
@@ -257,6 +269,7 @@ func _on_collision_with_wall() -> void:
 
 # Function that handles the enemy taking damage
 func _get_hit(damage: float) -> void:
+	play_sound_effect(got_hit_sound)
 	health -= damage
 	if health <= 0:
 		_die()

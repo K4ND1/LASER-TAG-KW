@@ -15,17 +15,25 @@ var is_dead: bool = false ## Flaga zapobiegająca wykonywaniu akcji po śmierci
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var flashlight: PointLight2D = $Flashlight
 @onready var timer: Timer = $Timer
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var laser_hc_width: float = 130.0
 @export var damage: float = 20.0
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
+
+@export var shot_sound: AudioStream
+@export var reloading_sound: AudioStream
+@export var got_hit_sound: AudioStream
+@export var empty_mag_sound: AudioStream
+
 
 signal health_changed(current_health)
 
 func _ready() -> void:
 	health = max_health
 
-
+@onready var gui: Control = $Control
 func _physics_process(_delta: float) -> void:
 	# Jeśli gracz nie żyje, natychmiast przerywamy funkcję (nie można się ruszać ani obracać)
 	if is_dead:
@@ -49,18 +57,36 @@ func _physics_process(_delta: float) -> void:
 		animated_sprite_2d.play("default")
 		
 	if Input.is_action_just_pressed("reload"):
-		current_amo = 16
+		can_shoot = false
+		play_sound_effect(reloading_sound)
+		animation_player.play("reload_progress")
+		gui.visible = true
+		await get_tree().create_timer(1.0).timeout
+		
 		var main_scene = get_tree().current_scene as MainScene
+		current_amo = 16
+		gui.visible = false
 		main_scene._change_amo()
+		can_shoot = true
+
 		
 		
 	if Input.is_action_just_pressed("shoot") and can_shoot and current_amo > 0:
+		play_sound_effect(shot_sound)
 		laser_anim.play("shoot")
 		bron_anim.play("shoot")
 		_handle_laser()
 		timer.start(0.35)
 		can_shoot = false
+	elif Input.is_action_just_pressed("shoot") and current_amo <= 0:
+		play_sound_effect(empty_mag_sound)
 
+
+func play_sound_effect(_new_sound_effect) -> void:
+	audio_stream_player_2d.pitch_scale = randf_range(0.95, 1.05)
+	audio_stream_player_2d.stream = _new_sound_effect
+	audio_stream_player_2d.play()
+	
 
 
 var can_shoot: bool = true
@@ -86,7 +112,8 @@ func _get_hit(damage_dealt: float) -> void:
 	# Jeśli gracz już nie żyje, ignorujemy kolejne obrażenia
 	if is_dead:
 		return
-		
+	
+	play_sound_effect(got_hit_sound)
 	health -= damage_dealt
 	health_changed.emit(health)
 	
